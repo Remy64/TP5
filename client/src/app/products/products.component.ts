@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Product} from '../products.service';
+import { ProductsService } from "../products.service";
 
 /**
  * Defines the component responsible to manage the display of the products page.
@@ -10,12 +11,8 @@ import { Product} from '../products.service';
 })
 export class ProductsComponent {
   // TODO: À compléter
+  constructor(private productService: ProductsService) { }
   products: Product[];
 
-  getProducts(sortingCriteria: string, category: string ): Product {
-
-
-
-    return {}
-  }
+  
 }
