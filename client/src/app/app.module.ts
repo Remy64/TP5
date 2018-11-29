@@ -15,6 +15,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductsService } from './products.service';
 import { ShoppingCartService } from './shopping-cart.service'
+import { PrixPipe } from './prix.pipe';
 
 // Application routes
 const appRoutes: Routes = [
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     ShoppingCartComponent,
     OrderComponent,
     ConfirmationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PrixPipe
   ],
   imports: [
     BrowserModule,
