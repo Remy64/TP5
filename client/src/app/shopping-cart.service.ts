@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Config } from './config';
+import { Product } from './products.service';
 
-
-export class Model {
-  id: number;
-  quantity: number
-}
+const MODEL = [
+  "productId",
+  "quantity"
+];
 
 /**
  * Defines the service responsible to retrieve the products in the shopping cart.
@@ -33,8 +33,8 @@ export class ShoppingCartService {
    */
   constructor(private http: HttpClient) {}
 
-  getCart(): Promise<Model[]>{
-  	const url = `${Config.apiUrl}/shopping-cart`
-  	return this.http.get(url).toPromise().then(items => items as Model[]).catch(ShoppingCartService.handleError);
+  getCart(): Promise<MODEL[]>{
+  	const url = `${Config.apiUrl}/shopping-cart`;
+  	return this.http.get(url).toPromise().then(items => items as MODEL[]).catch(ShoppingCartService.handleError);
   }
 }
