@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Pipe} from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { ProductsService } from '../products.service'
 
@@ -29,6 +29,7 @@ export class ShoppingCartComponent {
   // TODO: À compléter
   panier: MODEL[];
   items: Item[];
+  total: number;
 
   ngOnInit(){
     this.getPanier();
@@ -39,9 +40,10 @@ export class ShoppingCartComponent {
   getPanier(): void{
     this.cartService.getCart().then(items => this.panier=items);
     for (var item in this.panier){
-      this.productService.getProduct(item.productId).then(produit => items.push(new Item(item.productId,item.quantity,produit)));
+      this.productService.getProduct(item.productId).then(
+        produit => items.push(new Item(item.productId,item.quantity,produit)),
+        total+=produit.price*item.quantity);
     }
-
     })
   }
 }
