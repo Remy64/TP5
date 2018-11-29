@@ -1,6 +1,7 @@
 <article>
   <h1>Panier</h1>
-  <table class="table shopping-cart-table">
+  <p class='empty' *ngIf="!panier"> Aucun produit dans le panier.</p>
+  <table class="table shopping-cart-table" *ngIf="panier">
     <thead>
     <tr>
       <th></th>
