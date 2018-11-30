@@ -44,6 +44,6 @@ export class ShoppingCartComponent {
         produit => items.push(new Item(item.productId,item.quantity,produit)),
         total+=produit.price*item.quantity);
     }
-    })
+  }
   }
 }
