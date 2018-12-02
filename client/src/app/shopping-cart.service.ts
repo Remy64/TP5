@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Config } from './config';
-import { Product } from './products.service';
+import { Model} from "./model";
+import {Product} from "./products.service";
 
-const MODEL = [
-  "productId",
-  "quantity"
-];
+
 
 /**
  * Defines the service responsible to retrieve the products in the shopping cart.
@@ -14,6 +12,8 @@ const MODEL = [
 @Injectable()
 
 export class ShoppingCartService {
+
+
 
   /**
    * Handles the current error.
@@ -33,8 +33,24 @@ export class ShoppingCartService {
    */
   constructor(private http: HttpClient) {}
 
-  getCart(): Promise<MODEL[]>{
-  	const url = `${Config.apiUrl}/shopping-cart`;
-  	return this.http.get(url).toPromise().then(items => items as MODEL[]).catch(ShoppingCartService.handleError);
+
+
+  getCart(): Promise<Model[]> {
+    const url = `${Config.apiUrl}/shopping-cart`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers, withCredentials: true};
+    return this.http.get(url, options).toPromise().then(items => items as Model[]).catch(ShoppingCartService.handleError);
+  }
+  postItem(model: Model): Promise<Model> {
+    const url = `${Config.apiUrl}/shopping-cart`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers, withCredentials: true};
+    return this.http.post(url, JSON.stringify(model), options).toPromise().then(() => true).catch(ShoppingCartService.handleError);
+  }
+  updateItem(model: Model): Promise<Model> {
+    const url = `${Config.apiUrl}/shopping-cart`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers, withCredentials: true};
+    return this.http.put(url, JSON.stringify(model), options).toPromise().then(() => true).catch(ShoppingCartService.handleError);
   }
 }
