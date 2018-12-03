@@ -14,10 +14,11 @@ import { Model } from "../model";
 })
 export class ProductComponent implements OnInit {
 
-product: Product;
-model: Model;
-panier: Model[];
-quantity = 1;
+  product: Product;
+  model: Model;
+  panier: Model[];
+  quantity = 1;
+  showDialog=false;
   /**
    * Initializes a new instance of the ProductComponent class.
    *
@@ -30,15 +31,17 @@ quantity = 1;
     this.productService.getProduct(id).then(product => this.product = product);
 
   }
-  Ajouter(): void {
+  Ajouter() {
     this.model.quantity = this.quantity;
     this.model.productId = this.product.id;
+    alert(this.model);
     this.cartService.getCart().then(panier => this.panier = panier);
-    if (this.panier.find( (item) => item.productId === this.product.id)) {
-      this.cartService.updateItem(this.model);
+    if (this.panier.find( item => item.productId === this.product.id)) {
+      this.cartService.updateItem(this.model).then(true => this.showDialog=true);
     } else {
-      this.cartService.postItem(this.model);
+      this.cartService.postItem(this.model).then(true => this.showDialog=true);
     }
+    this.showDialog=true;
   }
 
   /**
