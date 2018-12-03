@@ -45,12 +45,18 @@ export class ShoppingCartService {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
-    return this.http.post(url, JSON.stringify(model), options).toPromise().then(() => true).catch(ShoppingCartService.handleError);
+    return this.http.post(url, JSON.stringify(model), options).toPromise().then().catch(ShoppingCartService.handleError);
   }
   updateItem(model: Model): Promise<Model> {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
-    return this.http.put(url, JSON.stringify(model), options).toPromise().then(() => true).catch(ShoppingCartService.handleError);
+    return this.http.put(url, JSON.stringify(model), options).toPromise().then().catch(ShoppingCartService.handleError);
+  }
+  deleteCart(): Promise<{}> {
+    const url = `${Config.apiUrl}/shopping-cart`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers, withCredentials: true};
+    return this.http.delete(url, options).toPromise().then().catch(ShoppingCartService.handleError);
   }
 }
