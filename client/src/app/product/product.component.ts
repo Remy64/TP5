@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
   product: Product;
   model: Model;
   panier: Model[];
-  quantity: number;
+  quantity=1;
   showDialog: boolean;
   /**
    * Initializes a new instance of the ProductComponent class.
@@ -42,9 +42,6 @@ export class ProductComponent implements OnInit {
   }
 
   Ajouter() {
-    //this.model.quantity = this.quantity;
-    //this.model.productId = this.product.id;
-    //console.log(this.model);
     this.cartService.getCart().then(panier => this.panier = panier);
     if(this.panier != undefined){
       if (this.panier.find( item => item.productId === this.product.id)) {

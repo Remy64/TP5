@@ -32,6 +32,8 @@ getCart() {
   this.shoppingCartService.getCart().then((shoppingCart) => {
       shoppingCart.forEach((cartItem) => {
         this.count += cartItem.quantity;
+        console.log(this.count);
+        console.log(cartItem.quantity);
       })
   });
 }

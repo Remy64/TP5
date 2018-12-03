@@ -39,6 +39,11 @@ export class ShoppingCartService {
       this.itemsChange.emit(this.nItemsTocart);
   }
 
+  setItems(quantity:number){
+    this.nItemsTocart = quantity;
+    this.itemsChange.emit(this.nItemsTocart);
+  }
+
   getCart(): Promise<Model[]> {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -49,13 +54,13 @@ export class ShoppingCartService {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
-    return this.http.post(url, {'productId': productId,'quantity': parseInt(quantity)}, options).toPromise().then().catch(ShoppingCartService.handleError);
+    return this.http.post(url, {['productId': productId, 'quantity': parseInt(quantity),]}, options).toPromise().then().catch(ShoppingCartService.handleError);
   }
-  updateItem(productId: number, quantity: any): Promise<Model> {
-    const url = `${Config.apiUrl}/shopping-cart`;
+  updateItem(productId: number, quantity: number): Promise<Model> {
+    const url = `${Config.apiUrl}/shopping-cart/`+productId;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
-    return this.http.put(url, {'productId': productId,'quantity': parseInt(quantity)}, options).toPromise().then().catch(ShoppingCartService.handleError);
+    return this.http.put(url, {quantity: quantity,}, options).toPromise().then().catch(ShoppingCartService.handleError);
   }
   deleteCart(): Promise<{}> {
     const url = `${Config.apiUrl}/shopping-cart`;

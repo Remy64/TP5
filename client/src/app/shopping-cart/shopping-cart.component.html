@@ -15,7 +15,7 @@
       <tbody>
         <tr *ngFor="let item of items">
           <td>
-            <button class="remove-item-button" title="Supprimer" (click)="removeOne(product.id)">
+            <button class="remove-item-button" title="Supprimer" (click)="removeOne(item.id)">
               <i class="fa fa-times"></i>
             </button>
           </td>
@@ -26,11 +26,11 @@
           <td>
             <div class="row">
               <div class="col">
-                <button class="remove-quantity-button" title="Retirer" disabled (click)="moins(product.id)"><i class="fa fa-minus"></i></button>
+                <button class="remove-quantity-button" title="Retirer" [disabled]="item.quantity == 1" (click)="moins(item)"><i class="fa fa-minus"></i></button>
               </div>
-              <div class="col quantity">1</div>
+              <div class="col quantity">{{item.quantity}}</div>
               <div class="col">
-                <button class="add-quantity-button" title="Ajouter" (click)="plus(product.id)"><i class="fa fa-plus"></i></button>
+                <button class="add-quantity-button" title="Ajouter" (click)="plus(item)"><i class="fa fa-plus"></i></button>
               </div>
             </div>
           </td>
