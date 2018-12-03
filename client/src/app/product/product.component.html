@@ -17,7 +17,7 @@
         </ul>
       </section>
       <hr>
-      <form class="pull-right" id="add-to-cart-form" ngSubmit="Ajouter()">
+      <form class="pull-right" id="add-to-cart-form" (ngSubmit)="Ajouter()">
         <label for="product-quantity">Quantité:</label>
         <input [ngModel]="quantity" class="form-control" id="product-quantity" name="product-quantity"
                type="number" min="1" required>&nbsp;

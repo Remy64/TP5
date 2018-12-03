@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
   model: Model;
   panier: Model[];
   quantity = 1;
-  showDialog=false;
+  showDialog: boolean;
   /**
    * Initializes a new instance of the ProductComponent class.
    *
@@ -34,7 +34,6 @@ export class ProductComponent implements OnInit {
   Ajouter() {
     this.model.quantity = this.quantity;
     this.model.productId = this.product.id;
-    alert(this.model);
     this.cartService.getCart().then(panier => this.panier = panier);
     if (this.panier.find( item => item.productId === this.product.id)) {
       this.cartService.updateItem(this.model).then(true => this.showDialog=true);
@@ -50,6 +49,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     this.getProduct(parseInt(productId));
+    this.showDialog=false;
     // TODO: Compléter la logique pour afficher le produit associé à l'identifiant spécifié (productId).
   }
 }
