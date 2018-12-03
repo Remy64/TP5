@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService} from '../products.service';
 import { Product} from '../products.service';
 import { ShoppingCartService } from '../shopping-cart.service';
-import { Model } from "../model";
+import { Model } from '../model';
 
 /**
  * Defines the component responsible to manage the product page.
@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
   product: Product;
   model: Model;
   panier: Model[];
-  quantity = 1;
+  quantity: number;
   showDialog: boolean;
   /**
    * Initializes a new instance of the ProductComponent class.
@@ -31,17 +31,6 @@ export class ProductComponent implements OnInit {
     this.productService.getProduct(id).then(product => this.product = product);
 
   }
-  Ajouter() {
-    this.model.quantity = this.quantity;
-    this.model.productId = this.product.id;
-    this.cartService.getCart().then(panier => this.panier = panier);
-    if (this.panier.find( item => item.productId === this.product.id)) {
-      this.cartService.updateItem(this.model).then(true => this.showDialog=true);
-    } else {
-      this.cartService.postItem(this.model).then(true => this.showDialog=true);
-    }
-    this.showDialog=true;
-  }
 
   /**
    * Occurs when the component is initialized.
@@ -49,7 +38,27 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     this.getProduct(parseInt(productId));
-    this.showDialog=false;
     // TODO: Compléter la logique pour afficher le produit associé à l'identifiant spécifié (productId).
   }
+
+  Ajouter() {
+    //this.model.quantity = this.quantity;
+    //this.model.productId = this.product.id;
+    //console.log(this.model);
+    this.cartService.getCart().then(panier => this.panier = panier);
+    if(this.panier != undefined){
+      if (this.panier.find( item => item.productId === this.product.id)) {
+        this.cartService.updateItem(this.product.id,this.quantity).then(() => {this.showDialog=true;this.cartService.addItems(this.quantity)});
+      } else {
+        this.cartService.postItem(this.product.id,this.quantity).then(() => {this.showDialog=true;this.cartService.addItems(this.quantity)});
+      }
+    }else{
+      this.cartService.postItem(this.product.id,this.quantity).then(() => {this.showDialog=true;this.cartService.addItems(this.quantity)});
+    }
+    this.showDialog=true;
+    setTimeout(() => {
+      this.showDialog = false;
+    }, 5000);
+  }
+
 }
