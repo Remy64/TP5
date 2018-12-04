@@ -57,7 +57,7 @@ export class OrderComponent implements OnInit {
     this.cartService.getCart().then(panier => this.order.products);
     this.orderService.postOrder(this.order);
     this.cartService.deleteCart();
-    this.router.navigateByUrl("/confirmation)");
+    this.router.navigateByUrl("/confirmation");
     // TODO: Compléter la soumission des informations lorsque le formulaire soumis est valide.
   }
 }
