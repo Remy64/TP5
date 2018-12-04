@@ -54,7 +54,7 @@ export class ShoppingCartService {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
-    return this.http.post(url, {['productId': productId, 'quantity': parseInt(quantity),]}, options).toPromise().then().catch(ShoppingCartService.handleError);
+    return this.http.post(url, [{'productId': productId, 'quantity': parseInt(quantity),}], options).toPromise().then().catch(ShoppingCartService.handleError);
   }
   updateItem(productId: number, quantity: number): Promise<Model> {
     const url = `${Config.apiUrl}/shopping-cart/`+productId;

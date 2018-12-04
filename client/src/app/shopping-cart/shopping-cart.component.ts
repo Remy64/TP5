@@ -56,7 +56,7 @@
         this.cartService.remove(id).then(() => {
          var newItems = [];
          var newTotal=0;
-         var nbItems=0:
+         var nbItems=0;
          this.items.map((item) => {
            if (item.id != id) {
              newItems.push(item);
