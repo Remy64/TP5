@@ -39,7 +39,7 @@ export class ShoppingCartService {
       this.itemsChange.emit(this.nItemsTocart);
   }
 
-  setItems(quantity:number){
+  setItems(quantity: number) {
     this.nItemsTocart = quantity;
     this.itemsChange.emit(this.nItemsTocart);
   }
@@ -54,10 +54,14 @@ export class ShoppingCartService {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
+<<<<<<< HEAD
     return this.http.post(url, [{'productId': productId, 'quantity': parseInt(quantity),}], options).toPromise().then().catch(ShoppingCartService.handleError);
+=======
+    return this.http.post(url, {'productId': productId, 'quantity': parseInt(quantity)}, options).toPromise().then().catch(ShoppingCartService.handleError);
+>>>>>>> 34ff654cc82b46d9b8cb71dda64261215464e095
   }
   updateItem(productId: number, quantity: number): Promise<Model> {
-    const url = `${Config.apiUrl}/shopping-cart/`+productId;
+    const url = `${Config.apiUrl}/shopping-cart/` + productId;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
     return this.http.put(url, {quantity: quantity,}, options).toPromise().then().catch(ShoppingCartService.handleError);
@@ -66,10 +70,11 @@ export class ShoppingCartService {
     const url = `${Config.apiUrl}/shopping-cart`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
+    this.nItemsTocart = 0;
     return this.http.delete(url, options).toPromise().then().catch(ShoppingCartService.handleError);
   }
   remove(id: any): Promise<{}>{
-    const url = `${Config.apiUrl}/shopping-cart/`+id;
+    const url = `${Config.apiUrl}/shopping-cart/` + id;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, withCredentials: true};
     return this.http.delete(url,options).toPromise().then().catch(ShoppingCartService.handleError);
